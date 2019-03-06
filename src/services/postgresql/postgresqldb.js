@@ -38,12 +38,11 @@ function GetDBDisconnection(_knex) {
 exports.createUser = async (payload) => {
   dbconnection = GetDBConnection();
   return new Promise(async (resolve, reject) => {
-    dbconnection("users").insert(payload)
+    dbconnection("login").insert(payload)
       .then(success => {
         resolve("successfully inserted.");
       })
       .catch(error => {
-        GetDBDisconnection(dbconnection);
         reject(error);
       })
       .finally(() => {
@@ -54,6 +53,7 @@ exports.createUser = async (payload) => {
 
   /**
  * get user data from the users table
+ * 
  *
  * @param  {String} username
  */
@@ -65,7 +65,6 @@ exports.getUsers = async (payload) => {
           resolve(success);
         })
         .catch(error => {
-          GetDBDisconnection(dbconnection);
           reject(error);
         })
         .finally(() => {
@@ -95,7 +94,6 @@ exports.updateuser = async (payload) => {
         }
       })
       .catch(error => {
-        GetDBDisconnection(dbconnection);
         reject(error);
       })
       .finally(() => {
@@ -113,7 +111,8 @@ exports.updateuser = async (payload) => {
  */
 
 exports.deleteUser = async (payload) => {
-  
+
+  dbconnection= undefined;
   dbconnection = GetDBConnection();
   return new Promise(async (resolve, reject) => {
     dbconnection("users").where('id', payload.id)
@@ -126,7 +125,6 @@ exports.deleteUser = async (payload) => {
         }
       })
       .catch(error => {
-        GetDBDisconnection(dbconnection);
         reject(error);
       })
       .finally(() => {
@@ -149,5 +147,32 @@ exports.getMembers = async (payload) => {
         .finally(() => {
           GetDBDisconnection(dbconnection);
         });
+  })
+};
+
+
+
+/**
+ * create user into the users table
+ *
+ * @param  {String} username
+ */
+
+exports.loginUser = async (payload) => {
+
+  dbconnection= undefined;
+  dbconnection = GetDBConnection();
+
+  return new Promise(async (resolve, reject) => {
+    dbconnection("login").select('id').where({ username: payload.username, password: payload.password })
+      .then(success => {
+        resolve(success);
+      })
+      .catch(error => {
+        reject(error);
+      })
+      .finally(() => {
+        GetDBDisconnection(dbconnection);
+      });
   })
 };

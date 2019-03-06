@@ -8,6 +8,8 @@ const updateUserRoute = require('./update-user');
 const deleteUserRoute = require('./delete-user');
 
 const membersRoute = require('./members');
+const loginuserRoute = require('./login-user');
+
 
 /**
  * UNSECURED API
@@ -19,6 +21,8 @@ router.use('/getusers', getUsersRoute);
 router.use('/updateuser', updateUserRoute);
 router.use('/deleteuser', deleteUserRoute);
 router.use('/members', membersRoute);
+router.use('/loginusers', loginuserRoute);
+
 
 
 

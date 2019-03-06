@@ -4,5 +4,5 @@ module.exports = {
     username: 'postgres',
     password: 'Welcome@123',
     host: 'localhost',
-    database: 'test'
+    database: 'mfexpert'
 }    

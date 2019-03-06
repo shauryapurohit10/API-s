@@ -4,7 +4,9 @@ const {
   updateuser,
   deleteUser,
 
-  getMembers
+  getMembers,
+  loginUser
+
 } = require('./postgresqldb');
 
 module.exports = {
@@ -12,5 +14,6 @@ module.exports = {
   getUsers,
   updateuser,
   deleteUser,
-  getMembers
+  getMembers,
+  loginUser
 };
